@@ -39,5 +39,19 @@ def init_db(config):
         );
         """
     )
+
+    cursor.execute(
+        f"""
+        CREATE TABLE users
+        (
+            id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+            username VARCHAR(20) NOT NULL,
+            password VARCHAR(30) NOT NULL,
+            points INT(3) NOT NULL,
+            CONSTRAINT pk_user PRIMARY KEY (id)
+        );
+        """
+    )
+    
     cursor.close()
     conn.close()
