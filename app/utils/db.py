@@ -44,14 +44,50 @@ def init_db(config):
         f"""
         CREATE TABLE users
         (
-            id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+            user_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
             username VARCHAR(20) NOT NULL,
             password VARCHAR(30) NOT NULL,
-            points INT(3) NOT NULL,
-            CONSTRAINT pk_user PRIMARY KEY (id)
+            CONSTRAINT pk_user PRIMARY KEY (user_id),
+            CONSTRAINT unique_username UNIQUE (username)
         );
         """
     )
-    
+
+    cursor.execute(
+        f"""
+        CREATE TABLE posts
+        (
+            post_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+            user_id SMALLINT UNSIGNED NOT NULL,
+            title VARCHAR(50) NOT NULL,
+            content VARCHAR(500) NOT NULL,
+            CONSTRAINT pk_post PRIMARY KEY (post_id),
+            CONSTRAINT fk_post FOREIGN KEY (user_id) 
+                REFERENCES users (user_id)
+            ON DELETE RESTRICT ON UPDATE CASCADE,
+            CONSTRAINT unique_title UNIQUE (title)
+        );
+        """
+    )
+
+    cursor.execute(
+        f"""
+        CREATE TABLE comments
+        (
+            comment_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+            post_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+            user_id SMALLINT UNSIGNED NOT NULL,
+            text VARCHAR(300) NOT NULL,
+            CONSTRAINT pk_comment PRIMARY KEY (comment_id),
+            CONSTRAINT fk_post FOREIGN KEY (post_id) 
+                REFERENCES post (post_id)
+            ON DELETE RESTRICT ON UPDATE CASCADE,
+            CONSTRAINT fk_user FOREIGN KEY (user_id) 
+                REFERENCES users (user_id)
+            ON DELETE RESTRICT ON UPDATE CASCADE,
+        );
+        """
+    )
+
     cursor.close()
     conn.close()

@@ -1,0 +1,46 @@
+from flask import Blueprint, request, redirect
+from flask import render_template, g, Blueprint
+from api.comment_api import Comment, CommentDB
+from api.user_api import UserDB
+from api.post_api import PostDB
+
+comment_list_blueprint = Blueprint("comment_list_blueprint", __name__)
+
+@comment_list_blueprint.route('/comment-entry')
+def comment_entry():
+   return render_template("comment-entry.html")
+
+
+@comment_list_blueprint.route('/add-comment', methods = ["POST"])
+def add_comment():
+    text = request.form.get("comment_text")
+    title = request.form.get("comment_title")
+    username = request.form.get("post_username")
+    
+    userdb = UserDB(g.mysql_db, g.mysql_cursor)
+    user_id = userdb.select_user_by_username(username)
+    postdb = PostDB(g.mysql_db, g.mysql_cursor)
+    post_id = postdb.select_post_by_title(title)
+    
+    new_comment = Comment(title, post_id, user_id)
+    database = CommentDB(g.mysql_db, g.mysql_cursor)
+
+    database.insert_comment(new_comment)
+
+    return redirect('/post')
+
+
+@comment_list_blueprint.route('/post', methods = ["GET", "POST"])
+def post_index():
+    postdb = PostDB(g.mysql_db, g.mysql_cursor)
+    database = CommentDB(g.mysql_db, g.mysql_cursor)
+
+    title = request.form.get("comment_title")
+    post_id = postdb.select_post_by_title(title)
+
+    if request.method == "POST":
+        comment_ids = request.form.getlist("comment_item")
+        for id in comment_ids:
+            database.delete_comment_by_id(id)
+
+    return render_template('post-index.html', post_index = database.select_comments_by_post_id(post_id))
