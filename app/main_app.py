@@ -22,6 +22,12 @@ from dotenv import load_dotenv
 # Imports for blueprints and other modules written for the application
 from views.task_view import task_list_blueprint
 from api.task_api import task_api_blueprint
+from views.post_view import post_list_blueprint
+from api.post_api import post_api_blueprint
+from views.user_view import user_list_blueprint
+from api.user_api import user_api_blueprint
+from views.comment_view import comment_list_blueprint
+from api.comment_api import comment_api_blueprint
 import utils.db as DBUtils
 
 # Load all the private data from the 
@@ -49,6 +55,13 @@ app.config["SECRET_KEY"] = uuid.uuid4().hex
 # Setup Views
 app.register_blueprint(task_list_blueprint)
 app.register_blueprint(task_api_blueprint)
+app.register_blueprint(post_list_blueprint)
+app.register_blueprint(post_api_blueprint)
+app.register_blueprint(comment_list_blueprint)
+app.register_blueprint(comment_api_blueprint)
+app.register_blueprint(user_list_blueprint)
+app.register_blueprint(user_api_blueprint)
+
 
 
 # Helper function to establish a connection to the database
