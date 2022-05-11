@@ -41,7 +41,7 @@ def add_user():
 def update_user(user_id):
     userdb = UserDB(g.mysql_db, g.mysql_cursor)
 
-    user = User(request.json['username'])
+    user = User(request.json['username'], request.json['password'])
     userdb.update_user(user_id, user)
     
     return jsonify({"status": "success", "id": user_id}), 200
