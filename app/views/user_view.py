@@ -19,9 +19,11 @@ def signup():
             msg = 'Please enter a username AND password'
             return redirect('/fail')
         else:
+            print("Create user")
             new_user = User(username, password)
             database.insert_user(new_user)
             msg = 'Account creation successful'
+            return redirect("/")
 
     return render_template('signup.html')
 

@@ -20,13 +20,12 @@ def test_post_properties():
     p = Post(title, content, user_id)
     assert p.title == title
     assert p.content == content
-    assert p.user_id == user_id 
     
     new_title = "New Property Test Title"
     new_content = "New Property Test Content"
 
     p.title = new_title
-    p.content= new_content
+    p.content = new_content
 
     assert p.title == new_title    
     assert p.content == new_content

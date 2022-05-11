@@ -62,7 +62,7 @@ def init_db(config):
             title VARCHAR(50) NOT NULL,
             content VARCHAR(500) NOT NULL,
             CONSTRAINT pk_post PRIMARY KEY (post_id),
-            CONSTRAINT fk_post FOREIGN KEY (user_id) 
+            CONSTRAINT fk_user FOREIGN KEY (user_id) 
                 REFERENCES users (user_id)
             ON DELETE RESTRICT ON UPDATE CASCADE,
             CONSTRAINT unique_title UNIQUE (title)
@@ -79,7 +79,7 @@ def init_db(config):
             text VARCHAR(300) NOT NULL,
             CONSTRAINT pk_comment PRIMARY KEY (comment_id),
             CONSTRAINT fk_post FOREIGN KEY (post_id) 
-                REFERENCES post (post_id)
+                REFERENCES posts (post_id)
             ON DELETE RESTRICT ON UPDATE CASCADE
         );
         """
