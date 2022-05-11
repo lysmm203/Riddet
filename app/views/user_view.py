@@ -9,28 +9,30 @@ def signup():
     database = UserDB(g.mysql_db, g.mysql_cursor)
 
     if request.method == "POST":
-        username = request.form('username')
-        password = request.form('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         if database.select_user_by_username(username):
             msg = 'Username has already been taken'
+            return redirect('/fail')
         elif not username or not password:
             msg = 'Please enter a username AND password'
+            return redirect('/fail')
         else:
             new_user = User(username, password)
             database.insert_user(new_user)
             msg = 'Account creation successful'
 
-    return render_template('signup.html', msg = msg)
+    return render_template('signup.html')
 
 
 @user_list_blueprint.route('/login', methods =['GET', 'POST'])
 def login():
-    database = UserDB(g.mysql_dp, g.mysql_cursor)
+    database = UserDB(g.mysql_db, g.mysql_cursor)
 
     if request.method == "POST":
-        username = request.form('username')
-        password = request.form('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         user = database.select_user_by_username(username)
         if user == database.select_user_by_password(password):
@@ -40,5 +42,11 @@ def login():
             msg = 'Login successful'
         else:
             msg = 'Wrong username or password'
+            return redirect('/fail')
 
-    return render_template('login.html', msg = msg)
+    return render_template('login.html')
+
+
+@user_list_blueprint.route('/fail', methods =['GET', 'POST'])
+def fail():
+    return render_template('error.html')
