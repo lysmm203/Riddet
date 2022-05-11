@@ -29,7 +29,7 @@ def add_post():
     username = request.form.get("post_username")
     
     userdb = UserDB(g.mysql_db, g.mysql_cursor)
-    user_id = userdb.select_user_by_username(username)
+    user_id = userdb.select_user_by_username(username)["user_id"]
     
     new_post = Post(title, content, user_id)
     database = PostDB(g.mysql_db, g.mysql_cursor)
