@@ -1,18 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>ToDo List:</h1>
-    <a href="/task-entry">Add a new task</a>
+    <a href="/post-entry">Add a new post</a>
     <form action="/" method="post">
         <table>
-            {% for task in todo_list %}
+            {% for post in timeline %}
                 <tr>
-                    <td>{{ task['description'] }}</td>
-                    <td><input type="checkbox" name="task_item" value={{ task['id'] }}></td>
+                    <td>{{ post['Title'] }}</td>
+                    <td>{{ post['Content'] }}</td>
+                    <td><input type="checkbox" name="task_item" value={{ post['id'] }}></td>
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Delete Tasks">
+        <input type="submit" value="Delete Posts">
+    </form>
+    <form action="/" method="post">
+        <table>
+            {% for post in timeline %}
+                <tr>
+                    <td>{{ post['Title'] }}</td>
+                    <td>{{ post['Content'] }}</td>
+                    <td><input type="checkbox" name="task_item" value={{ post['id'] }}></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Delete Posts">
     </form>
     </ul>
 {% endblock %}

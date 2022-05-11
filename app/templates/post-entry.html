@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>New Post:</h1>
+    <form action="/add-post" method="post">
+        <input autocomplete="off" autofocus name="post_title" placeholder="Title" type="text">
+        <input autocomplete="off" autofocus name="post_content" placeholder="Content" type="text">
+        <input autocomplete="off" autofocus name="post_username" placeholder="Username" type="text">
+        <input type="submit" value="Add Content">
+    </form>
+    
+{% endblock %}
