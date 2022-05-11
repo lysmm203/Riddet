@@ -1,11 +1,7 @@
-from webbrowser import get
-
-
 class User:
     def __init__(self, username, password):
         self._username = username
         self._password = password
-        self._points = 0
 
     
     @property
@@ -21,11 +17,6 @@ class User:
     @property
     def password(self):
         return self._password
-
-    
-    @property
-    def points(self):
-        return self._points
 
 
 class UserDB:
@@ -61,7 +52,7 @@ class UserDB:
     
     def select_user_by_id(self, user_id):
         select_user_by_id = """
-            SELECT * from users WHERE id = %s;
+            SELECT * from users WHERE user_id = %s;
             """
         self._cursor.execute(select_user_by_id, (user_id,))
         return self._cursor.fetchone()
@@ -69,11 +60,11 @@ class UserDB:
 
     def insert_user(self, user):
         insert_query = """
-            INSERT INTO users (username, password, points)
-            VALUES (%s, %s, %s);
+            INSERT INTO users (username, password)
+            VALUES (%s, %s);
             """
         
-        self._cursor.execute(insert_query, (user.username, user.password, user.points))
+        self._cursor.execute(insert_query, (user.username, user.password))
         self._cursor.execute("SELECT LAST_INSERT_ID() user_id")
         user_id = self._cursor.fetchone()
         self._db_conn.commit()
@@ -84,7 +75,7 @@ class UserDB:
         update_query = """
             UPDATE users
             SET username = %s
-            WHERE id = %s;
+            WHERE user_id = %s;
         """
 
         self._cursor.execute(update_query, (new_user.username, user_id))
@@ -94,7 +85,7 @@ class UserDB:
     def delete_user_by_id(self, user_id):
         delete_query = """
             DELETE from users
-            WHERE id = %s;
+            WHERE user_id = %s;
         """
 
         self._cursor.execute(delete_query, (user_id,))
