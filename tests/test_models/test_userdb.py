@@ -12,7 +12,7 @@ def test_user_insert(db_test_client):
 
     userdb.insert_user(test_user)
 
-    result = userdb.select_user_by_id(1)[0]
+    result = userdb.select_user_by_id(1)
 
     assert result['username'] == "test_username"
     assert result['password'] == "test_password"
@@ -20,7 +20,7 @@ def test_user_insert(db_test_client):
     conn.commit()
 
 
-def test_task_delete(db_test_client):
+def test_user_delete(db_test_client):
     conn, cursor = db_test_client
     userdb = UserDB(conn, cursor)
     
@@ -28,12 +28,12 @@ def test_task_delete(db_test_client):
 
     userdb.insert_user(test_user)
 
-    result = userdb.select_user_by_id(2)[0]
+    result = userdb.select_user_by_id(2)
     assert result['username'] == "delete_username"
     assert result['password'] == "delete_password"
 
     userdb.delete_user_by_id(2)
     result = userdb.select_user_by_id(2)
-    assert len(result) == 0
+    assert result is None 
     
     conn.commit()

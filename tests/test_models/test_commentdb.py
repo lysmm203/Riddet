@@ -21,7 +21,7 @@ def test_comment_insert(db_test_client):
     conn.commit()
 
 
-def test_task_delete(db_test_client):
+def test_comment_delete(db_test_client):
     conn, cursor = db_test_client
     commentdb = CommentDB(conn, cursor)
 
