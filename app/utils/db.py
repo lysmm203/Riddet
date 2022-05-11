@@ -75,16 +75,12 @@ def init_db(config):
         CREATE TABLE comments
         (
             comment_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
-            post_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
-            user_id SMALLINT UNSIGNED NOT NULL,
+            post_id SMALLINT UNSIGNED NOT NULL,
             text VARCHAR(300) NOT NULL,
             CONSTRAINT pk_comment PRIMARY KEY (comment_id),
             CONSTRAINT fk_post FOREIGN KEY (post_id) 
                 REFERENCES post (post_id)
-            ON DELETE RESTRICT ON UPDATE CASCADE,
-            CONSTRAINT fk_user FOREIGN KEY (user_id) 
-                REFERENCES users (user_id)
-            ON DELETE RESTRICT ON UPDATE CASCADE,
+            ON DELETE RESTRICT ON UPDATE CASCADE
         );
         """
     )

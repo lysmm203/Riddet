@@ -1,8 +1,7 @@
 class Comment:
-    def __init__(self, text, post_id, user_id):
+    def __init__(self, text, post_id):
         self._text = text
         self._post_id = post_id
-        self._user_id = user_id
 
     
     @property
@@ -20,11 +19,6 @@ class Comment:
         return self._post_id
 
 
-    @property
-    def user_id(self):
-        return self._user_id
-
-
 class CommentDB:
     def __init__(self, db_conn, db_cursor):
         self._db_conn = db_conn
@@ -37,14 +31,6 @@ class CommentDB:
         """
         self._cursor.execute(select_all_query)
 
-        return self._cursor.fetchall()
-
-    
-    def select_comments_by_user_id(self, user_id):
-        select_comments_by_user_id = """
-            SELECT * from comments WHERE user_id = %s;
-        """
-        self._cursor.execute(select_comments_by_user_id, (user_id,))
         return self._cursor.fetchall()
 
 
@@ -66,11 +52,11 @@ class CommentDB:
 
     def insert_comment(self, comment):
         insert_query = """
-            INSERT INTO comments (text, post_id, user_id)
-            VALUES (%s, %s, %s);
+            INSERT INTO comments (text, post_id)
+            VALUES (%s, %s);
             """
         
-        self._cursor.execute(insert_query, (comment.text, comment.post_id, comment.user_id))
+        self._cursor.execute(insert_query, (comment.text, comment.post_id))
         self._cursor.execute("SELECT LAST_INSERT_ID() comment_id")
         comment_id = self._cursor.fetchone()
         self._db_conn.commit()

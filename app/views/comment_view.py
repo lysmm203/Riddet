@@ -1,7 +1,6 @@
 from flask import Blueprint, request, redirect
 from flask import render_template, g, Blueprint
 from api.comment_api import Comment, CommentDB
-from api.user_api import UserDB
 from api.post_api import PostDB
 
 comment_list_blueprint = Blueprint("comment_list_blueprint", __name__)
@@ -15,14 +14,11 @@ def comment_entry():
 def add_comment():
     text = request.form.get("comment_text")
     title = request.form.get("comment_title")
-    username = request.form.get("post_username")
     
-    userdb = UserDB(g.mysql_db, g.mysql_cursor)
-    user_id = userdb.select_user_by_username(username)
     postdb = PostDB(g.mysql_db, g.mysql_cursor)
     post_id = postdb.select_post_by_title(title)
     
-    new_comment = Comment(title, post_id, user_id)
+    new_comment = Comment(text, post_id)
     database = CommentDB(g.mysql_db, g.mysql_cursor)
 
     database.insert_comment(new_comment)
