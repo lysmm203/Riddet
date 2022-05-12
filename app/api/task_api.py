@@ -79,7 +79,7 @@ def update_task(task_id):
     taskdb = TaskDB(g.mysql_db, g.mysql_cursor)
 
     task = Task(request.json['description'])
-    taskdb.update_task(task_id, task)
+    taskdb.update_task(task_id, task1)
     
     return jsonify({"status": "success", "id": task_id}), 200
 
