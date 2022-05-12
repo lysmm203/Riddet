@@ -1,19 +1,19 @@
 from flask import Blueprint, request, redirect
 from flask import render_template, g, Blueprint
-from api.task_api import Task, TaskDB
+from models.task import Task, TaskDB
 
 task_list_blueprint = Blueprint('task_list_blueprint', __name__)
 
-@task_list_blueprint.route('/', methods=["GET", "POST"])
-def index():
-    database = TaskDB(g.mysql_db, g.mysql_cursor)
+# @task_list_blueprint.route('/', methods=["GET", "POST"])
+# def index():
+#     database = TaskDB(g.mysql_db, g.mysql_cursor)
 
-    if request.method == "POST":
-        task_ids = request.form.getlist("task_item")
-        for id in task_ids:
-            database.delete_task_by_id(id)
+#     if request.method == "POST":
+#         task_ids = request.form.getlist("task_item")
+#         for id in task_ids:
+#             database.delete_task_by_id(id)
 
-    return render_template('index.html', todo_list=database.select_all_tasks())    
+#     return render_template('index.html', todo_list=database.select_all_tasks())    
 
 
 @task_list_blueprint.route('/task-entry')

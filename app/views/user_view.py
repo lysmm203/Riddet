@@ -22,6 +22,7 @@ def signup():
             new_user = User(username, password)
             database.insert_user(new_user)
             msg = 'Account creation successful'
+            return redirect("/success")
 
     return render_template('signup.html')
 
@@ -40,9 +41,10 @@ def login():
             session['id'] = user['user_id']
             session['username'] = user['username']
             msg = 'Login successful'
+            return redirect('/success', msg = msg)
         else:
             msg = 'Wrong username or password'
-            return redirect('/fail')
+            return redirect('/fail', msg = msg)
 
     return render_template('login.html')
 
@@ -50,3 +52,7 @@ def login():
 @user_list_blueprint.route('/fail', methods =['GET', 'POST'])
 def fail():
     return render_template('error.html')
+
+@user_list_blueprint.route('/success', methods =['GET', 'POST'])
+def success():
+    return render_template('success.html')

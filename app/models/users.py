@@ -38,7 +38,7 @@ class UserDB:
         select_user_by_username = """
             SELECT * from users WHERE username = %s;
         """
-        self._cursor.execute(select_user_by_username, (f"%{username}%",))
+        self._cursor.execute(select_user_by_username, (username,))
         return self._cursor.fetchone()
 
     
@@ -46,7 +46,7 @@ class UserDB:
         select_user_by_password = """
             SELECT * from users WHERE username = %s;
         """
-        self._cursor.execute(select_user_by_password, (f"%{password}%",))
+        self._cursor.execute(select_user_by_password, (password,))
         return self._cursor.fetchone()
 
     
