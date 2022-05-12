@@ -57,7 +57,7 @@ class PostDB:
         select_post_by_title = """
             SELECT * from posts WHERE title = %s;
         """
-        self._cursor.execute(select_post_by_title, (f"%{title}%",))
+        self._cursor.execute(select_post_by_title, (title,))
         return self._cursor.fetchone()
 
     
@@ -85,12 +85,11 @@ class PostDB:
     def update_post(self, post_id, new_post):
         update_query = """
             UPDATE posts
-            SET title = %s
             SET content = %s
             WHERE post_id = %s;
         """
 
-        self._cursor.execute(update_query, (new_post.title, new_post.content, post_id))
+        self._cursor.execute(update_query, (new_post.content, post_id))
         self._db_conn.commit()
 
 
