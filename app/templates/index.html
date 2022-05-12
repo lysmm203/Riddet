@@ -1,30 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <a href="/post-entry">Add a new post</a>
+    <h1>Timeline</h1>
     <form action="/" method="post">
-        <table>
-            {% for post in timeline %}
-                <tr>
-                    <td>{{ post['Title'] }}</td>
-                    <td>{{ post['Content'] }}</td>
-                    <td><input type="checkbox" name="task_item" value={{ post['id'] }}></td>
-                </tr>
-            {% endfor %}
-        </table>
-        <input type="submit" value="Delete Posts">
-    </form>
-    <form action="/" method="post">
-        <table>
-            {% for post in timeline %}
-                <tr>
-                    <td>{{ post['Title'] }}</td>
-                    <td>{{ post['Content'] }}</td>
-                    <td><input type="checkbox" name="task_item" value={{ post['id'] }}></td>
-                </tr>
-            {% endfor %}
-        </table>
-        <input type="submit" value="Delete Posts">
+        {% for post in timeline %}
+            <div class="center">
+                <h4>{{ post['title'] }} from {{ post['user_id'] }}</h4> 
+                <p>{{ post['content'] }}</p>
+                <a href="/post-entry">Reply</a> <br>
+                <a href="/post-edit">Edit/Delete</a>
+            </div>
+        {% endfor %}
     </form>
     </ul>
 {% endblock %}

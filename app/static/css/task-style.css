@@ -1,6 +1,7 @@
 body {
-    font-family: Arial;
-    margin: 0;
+    font-family:'Times New Roman', Times, serif;
+    margin: 10px;
+    background-color: rgb(162, 160, 220);
 }
 
 .header {
@@ -21,4 +22,11 @@ body {
     padding-right: 10px;
     padding-left: 10px;
 }
-  
+
+.center {
+    margin: auto;
+    width: 45%;
+    border: 5px solid #ffffff;
+    border-bottom-style: dashed;
+    padding: 5px;
+    }
