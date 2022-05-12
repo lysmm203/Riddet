@@ -44,7 +44,7 @@ def post_edit():
    return render_template("post-edit.html")
 
 
-@post_list_blueprint.route('/edit-post', methods = ["PUT"])
+@post_list_blueprint.route('/edit-post', methods = ["GET", "POST"])
 def edit_post():
     title = request.form.get('post_title')
 
@@ -53,11 +53,11 @@ def edit_post():
     username = request.form.get("post_username")
 
     userdb = UserDB(g.mysql_db, g.mysql_cursor)
-    user_id = userdb.select_user_by_username(username)
+    user_id = userdb.select_user_by_username(username)["user_id"]
 
-    new_post = Post(new_title, new_content, user_id)
     database = PostDB(g.mysql_db, g.mysql_cursor)
-    post = database.select_post_by_title(title)
+    post = database.select_post_by_title(title)["post_id"]
+    new_post = Post(new_title, new_content, user_id)
 
     database.update_post(post, new_post)
 
@@ -86,7 +86,7 @@ def user_index():
     database = PostDB(g.mysql_db, g.mysql_cursor)
 
     username = request.form.get("post_username")
-    user_id = userdb.select_user_by_username(username)
+    user_id = userdb.select_user_by_username(username)["user_id"]
 
     if request.method == "POST":
         post_ids = request.form.getlist("post_item")
