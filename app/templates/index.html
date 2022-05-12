@@ -7,10 +7,11 @@
             <div class="center">
                 <h4>{{ post['title'] }} from {{ post['user_id'] }}</h4> 
                 <p>{{ post['content'] }}</p>
-                <a href="/post-entry">Reply</a> <br>
-                <a href="/post-edit">Edit/Delete</a>
+                <td><input type="checkbox" name="post_item" value={{ post['post_id'] }}></td>
+                <a href="/post-entry">Reply</a> <a href="/post-edit">edit</a>
             </div>
         {% endfor %}
+        <input type="submit" value="Delete Posts">
     </form>
     </ul>
 {% endblock %}

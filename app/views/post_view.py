@@ -75,6 +75,10 @@ def delete_post():
 
     return redirect('/')
 
+@post_list_blueprint.route('/post-delete')
+def post_remove():
+   return render_template("post-delete.html")
+
 
 @post_list_blueprint.route('/user-profile', methods = ["GET", "POST"])
 def user_index():
