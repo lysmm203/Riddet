@@ -1,10 +1,11 @@
 from app.models.users import User, UserDB
 
-# By using the parameter db_test_client, we automatically get access to our test
-#   database provided by the pytest fixture in conftest.py
-#   (note the parameter name matches the name of the fixture function).
 def test_user_insert(db_test_client):
-    # The test fixture only setups the 
+    """Tests the insert functionality of the User class by creating the UserDB, 
+    initializing a User, inserting the User, and ensuring that the User in the
+    UserDB is the one initialized in this test case.
+    """
+    
     conn, cursor = db_test_client
     userdb = UserDB(conn, cursor)
 
@@ -21,6 +22,11 @@ def test_user_insert(db_test_client):
 
 
 def test_user_delete(db_test_client):
+    """Tests the delete functionality of the User class by creating the UserDB, 
+    initializing a User, inserting the User, deleting the User, and ensuring 
+    that attempting to retrieve the deleted User results in None.
+    """
+    
     conn, cursor = db_test_client
     userdb = UserDB(conn, cursor)
     

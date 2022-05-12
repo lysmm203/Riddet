@@ -4,6 +4,9 @@ from datetime import datetime
 from app.models.posts import Post 
 
 def test_post_constructor():
+    """Tests the Post constructor by ensuring that 
+    the instance contains the parameters of its initialization.   
+    """
     title = "Test Title"
     content = "Test Content"
     user_id = 1
@@ -13,6 +16,10 @@ def test_post_constructor():
     assert p.user_id == user_id 
 
 def test_post_properties():
+    """Test the properties of the Post class by ensuring that 
+    the setter functions work as intended. 
+    """
+
     title = "Property Test Title"
     content = "Property Test Content"
     user_id = 1
