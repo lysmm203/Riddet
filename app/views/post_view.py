@@ -48,7 +48,6 @@ def post_edit():
 def edit_post():
     title = request.form.get('post_title')
 
-    new_title = request.form.get("post_new_title")
     new_content = request.form.get("post_new_content")
     username = request.form.get("post_username")
 
@@ -57,7 +56,7 @@ def edit_post():
 
     database = PostDB(g.mysql_db, g.mysql_cursor)
     post = database.select_post_by_title(title)["post_id"]
-    new_post = Post(new_title, new_content, user_id)
+    new_post = Post(title, new_content, user_id)
 
     database.update_post(post, new_post)
 
