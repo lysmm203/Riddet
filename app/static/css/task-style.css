@@ -1,6 +1,7 @@
 body {
-    font-family: Arial;
-    margin: 0;
+    font-family: cursive;
+    margin: 10px;
+    background-color: rgb(162, 160, 220);
 }
 
 .header {
@@ -21,4 +22,36 @@ body {
     padding-right: 10px;
     padding-left: 10px;
 }
-  
+
+.center {
+    margin: auto;
+    width: 45%;
+    border: 5px solid #ffffff;
+    border-bottom-style: dashed;
+    border-top-style: dashed;
+    padding: 5px;
+    background-color: rgb(220, 220, 245);
+    }
+
+    a:visited {
+      color: rgb(176, 91, 105);
+      background-color: transparent;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color: rgb(255, 255, 255);
+      background-color: transparent;
+      text-decoration: underline;
+    }
+    
+    a:active {
+      color: yellow;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+
+    .content { 
+      width: 390px;
+      height: 100px;  
+    }
