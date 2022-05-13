@@ -7,6 +7,7 @@ post_list_blueprint = Blueprint("post_list_blueprint", __name__)
 
 @post_list_blueprint.route('/', methods = ["GET", "POST"])
 def index():
+    """Receives all of the posts in the database to display."""
     database = PostDB(g.mysql_db, g.mysql_cursor)
 
     if request.method == "POST":
@@ -24,6 +25,7 @@ def post_entry():
 
 @post_list_blueprint.route('/add-post', methods = ["POST"])
 def add_post():
+    """Gets the username, title, and content of a post to add it to the database."""
     title = request.form.get("post_title")
     content = request.form.get("post_content")
     username = request.form.get("post_username")
@@ -46,6 +48,7 @@ def post_edit():
 
 @post_list_blueprint.route('/edit-post', methods = ["GET", "POST"])
 def edit_post():
+    """Gets the title of the post and the new content of said post to replace with the old content."""
     title = request.form.get('post_title')
 
     new_content = request.form.get("post_new_content")
@@ -65,6 +68,7 @@ def edit_post():
 
 @post_list_blueprint.route('/delete-post', methods = ["DELETE"])
 def delete_post():
+    """Gets the title of a post to find and delete from the database."""
     title = request.form.get('post_title')
 
     database = PostDB(g.mysql_db, g.mysql_cursor)
@@ -81,6 +85,7 @@ def post_remove():
 
 @post_list_blueprint.route('/user-profile', methods = ["GET", "POST"])
 def user_index():
+    """Finds all of the posts associated with a certain user to display."""
     userdb = UserDB(g.mysql_db, g.mysql_cursor)
     database = PostDB(g.mysql_db, g.mysql_cursor)
 

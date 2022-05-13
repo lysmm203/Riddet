@@ -12,6 +12,7 @@ def comment_entry():
 
 @comment_list_blueprint.route('/add-comment', methods = ["POST"])
 def add_comment():
+    """Gets the title of a post and the text for a comment to add a comment under the post with the given title."""
     text = request.form.get("comment_text")
     title = request.form.get("comment_title")
     
@@ -28,6 +29,7 @@ def add_comment():
 
 @comment_list_blueprint.route('/post', methods = ["GET", "POST"])
 def post_index():
+    """Receives all of the comments associated with a post to display."""
     postdb = PostDB(g.mysql_db, g.mysql_cursor)
     database = CommentDB(g.mysql_db, g.mysql_cursor)
 

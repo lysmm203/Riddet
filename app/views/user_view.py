@@ -6,6 +6,7 @@ user_list_blueprint = Blueprint('user_list_blueprint', __name__)
 
 @user_list_blueprint.route('/signup', methods = ['GET', 'POST'])
 def signup():
+    """Gets a username and password to add a user to the database."""
     database = UserDB(g.mysql_db, g.mysql_cursor)
 
     if request.method == "POST":
@@ -29,6 +30,7 @@ def signup():
 
 @user_list_blueprint.route('/login', methods =['GET', 'POST'])
 def login():
+    """Checkes the database after given a username to see if the given password matches what is in the database."""
     database = UserDB(g.mysql_db, g.mysql_cursor)
 
     if request.method == "POST":
